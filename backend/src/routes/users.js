@@ -10,7 +10,7 @@ usersRouter.get("/", async (req, res) => {
   res.status(status).json({success, status, body});
 });
 
-usersRouter.delete("/:id", async (req, res) => {
+usersRouter.put("/:id", async (req, res) => {
     const {success, status, body} = await usersControllers.updateUser(req.params.id, req.body);
     res.status(status).json({success, status, body});
 });
