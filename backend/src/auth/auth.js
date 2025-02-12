@@ -15,14 +15,14 @@ passport.use(new LocalStrategy({ usernameField: 'email'}, async (email, password
         return callback(null, false);
     }
 
-    const saltBuffer = user.salt.saltBuffer;
+    const saltBuffer = user.salt.buffer;
 
     crypto.pbkdf2(password, saltBuffer, 310000, 16, 'sha256', (err, hashedPassword) => {
         if (err) {
             return callback(null, false);
         }
 
-        const userPasswordBuffer = Buffer.from(user.password.Buffer);
+        const userPasswordBuffer = Buffer.from(user.password.buffer);
 
         if(!crypto.timingSafeEqual(userPasswordBuffer, hashedPassword)) {
             return callback(null, false);
@@ -43,7 +43,7 @@ authRouter.post("/signup", async (req, res) => {
             success: false,
             status: 500,
             body: {
-                text: "Email já cadastrado"
+                text: "Utilizador já cadastrado"
             
             }
         });
@@ -77,7 +77,7 @@ authRouter.post("/signup", async (req, res) => {
                 success: true,
                 status: 200,
                 body: {
-                    text: "Usuário criado com sucesso",
+                    text: "Utilizador criado com sucesso",
                     token,
                     user,
                     loggedIn: true
@@ -87,5 +87,44 @@ authRouter.post("/signup", async (req, res) => {
     });
     
 });
+
+authRouter.post('/login', (req, res, next) => {
+    passport.authenticate('local', (error, user) => {
+        if (error) {
+            return res.status(500).json({
+                success: false,
+                status: 500,
+                body: {
+                    text: "Erro ao autenticar o utilizador",
+                    error
+                }
+            });
+        }
+
+        if (!user) {
+            return res.status(400).json({
+                success: false,
+                status: 400,
+                body: {
+                    text: "Utilizador não encontrado",
+                    error: "Invalid credentials"
+                }
+            });
+        }
+
+        // Gerar o token após autenticar com sucesso
+        const token = jwt.sign(user, 'secret');
+        return res.status(200).json({
+            success: true,
+            status: 200,
+            body: {
+                text: "Utilizador logado com sucesso!",
+                user,
+                token
+            }
+        });
+    })(req, res, next);
+});
+
 
 export default authRouter;
