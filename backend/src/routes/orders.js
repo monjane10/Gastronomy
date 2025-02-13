@@ -17,6 +17,10 @@ ordersRouter.get("/", async (req, res) => {
   res.status(status).json({success, status, body});
 });
 
+ordersRouter.get("/:id", async (req, res) => {
+  const {success, status, body} = await ordersControllers.getOrdersByUserId(req.params.id);  
+  res.status(status).json({success, status, body});
+});
 ordersRouter.put("/:id", async (req, res) => {
     const {success, status, body} = await ordersControllers.updateOrder(req.params.id, req.body);
     res.status(status).json({success, status, body});
