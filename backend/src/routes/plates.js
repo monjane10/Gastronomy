@@ -17,7 +17,7 @@ platesRouter.get("/", async (req, res) => {
 });
 
 
-platesRouter.get("/", async (req, res) => {
+platesRouter.get("/disponiveis", async (req, res) => {
   const {success, status, body} = await platesControllers.getAvailablePlates();  
   res.status(status).json({success, status, body});
 });
