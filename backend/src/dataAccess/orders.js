@@ -5,18 +5,69 @@ import { ObjectId } from "mongodb";
 const collectionName = "orders";
 
 export default class orderDataAccess {
+
     async getOrders() {
         const result = await Mongo.db
             .collection(collectionName)
-            .find()
+            .aggregate([
+                {
+                    $lookup: {
+                        from: "orderItems",       
+                        localField: "_id",          
+                        foreignField: "orderId",    
+                        as: "orderItems"            
+                    }
+                },
+                {
+                    $lookup: {
+                        from: "users",        
+                        localField: "userId",         
+                        foreignField: "_id",    
+                        as: "userDetails"
+                    }
+                },
+                {
+                   $project: {
+                    "userDetails.password": 0,
+                    "userDetails.salt": 0
+                   }
+                },
+                {
+                    $unwind: "$orderItems"
+                },
+                {
+                    $lookup: {
+                        from: "plates",
+                        localField: "orderItems.plateId",
+                        foreignField: "_id",
+                        as: "orderItems.itemDetails"
+                    }
+                }
+            ])
             .toArray();
         return result;
     }
-    
     async addOrder(order) {
-        const result = await Mongo.db
+        const {items, ...orderRest} = order;
+
+        orderRest.createdAt = new Date();
+        orderRest.pickupStatus = "Pendente";
+        orderRest.userId = new ObjectId(orderRest.userId);
+
+        const newOrder = await Mongo.db
             .collection(collectionName)
-            .insertOne(order);
+            .insertOne(orderRest);
+
+            if(!newOrder.insertedId) {
+                throw new Error("Não foi possível adicionar o pedido");
+            }
+            items.map((item) => {
+                item.plateId = new ObjectId(item.plateId);
+                item.orderId = new ObjectId(newOrder.insertedId);
+            });
+        const result = await Mongo.db
+            .collection('orderItems')
+            .insertMany(items);
         return result;
     }
 
