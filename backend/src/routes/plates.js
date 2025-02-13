@@ -16,12 +16,6 @@ platesRouter.get("/", async (req, res) => {
   res.status(status).json({success, status, body});
 });
 
-
-platesRouter.get("/disponiveis", async (req, res) => {
-  const {success, status, body} = await platesControllers.getAvailablePlates();  
-  res.status(status).json({success, status, body});
-});
-
 platesRouter.put("/:id", async (req, res) => {
     const {success, status, body} = await platesControllers.updatePlate(req.params.id, req.body);
     res.status(status).json({success, status, body});
@@ -32,5 +26,10 @@ platesRouter.delete("/:id", async (req, res) => {
     res.status(status).json({success, status, body});
 });
 
+platesRouter.get("/disponiveis", async (req, res) => {
+  const {success, status, body} = await platesControllers.getAvailablePlates();  
+  res.status(status).json({success, status, body});
+});
 
-export default usersRouter;
+
+export default platesRouter;

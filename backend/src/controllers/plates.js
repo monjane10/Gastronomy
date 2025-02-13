@@ -44,7 +44,7 @@ export default class PlatesControllers {
 
     async updatePlate(plateId, plate) {
         try {
-            const result = await this.dataAccess.updateUser(plateId, plate);
+            const result = await this.dataAccess.updatePlate(plateId, plate);
             return ok(result);
         } catch (error) {
             return serverError(error);
