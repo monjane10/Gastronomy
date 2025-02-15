@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { TextField, Button } from '@mui/material'
 import styles from './page.module.css'
+import authServices from '../../services/auth'
 export default function Auth() {
     const [formType, setFormType] = useState('login')
     const [formData, setFormData] = useState(null)
+    const { login } = authServices()
 
     const handleChangeFormType = () => {
         setFormData(null)
@@ -26,7 +28,7 @@ export default function Auth() {
         e.preventDefault()
         switch (formType) {
             case 'login':
-                // login
+                login(formData)
                 break
             case 'signup':
                 if (formData.password !== formData.confirmpassword) {
