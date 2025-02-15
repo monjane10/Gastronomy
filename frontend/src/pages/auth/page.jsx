@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { TextField, Button } from '@mui/material'
 import styles from './page.module.css'
 import authServices from '../../services/auth'
+
 export default function Auth() {
     const [formType, setFormType] = useState('login')
-    const [formData, setFormData] = useState(null)
-    const { login, signup, authLoading} = authServices()
+    const [formData, setFormData] = useState({}) 
+    const { login, signup, authLoading } = authServices()
+
     const handleChangeFormType = () => {
-        setFormData(null)
+        setFormData({});  
         if (formType === 'login') {
             setFormType('signup')
         } else {
@@ -19,14 +21,11 @@ export default function Auth() {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
-
         })
     }
 
     if (authLoading) {
-        return (
-            <h1>Carregando...</h1>
-        )
+        return <h1>Carregando...</h1>
     }
 
     const handleSubmitForm = (e) => {
@@ -47,19 +46,19 @@ export default function Auth() {
         }
     }
 
-
-    if (formType === 'login') {
-        return (
-            <div className={styles.authPageContainer}>
-                <div>
+    return (
+        <div className={styles.authPageContainer}>
+            {formType === 'login' ? (
+                <>
                     <h1>Login</h1>
-                    <button onClick={handleChangeFormType} >Ainda não tens uma conta? Clique aqui</button>
+                    <button onClick={handleChangeFormType}>Ainda não tens uma conta? Clique aqui</button>
                     <form onSubmit={handleSubmitForm}>
                         <TextField
                             required
                             label="Email"
                             type='email'
                             name='email'
+                            value={formData.email || ''} 
                             onChange={handleFormDataChange}
                         />
                         <TextField
@@ -67,30 +66,23 @@ export default function Auth() {
                             label="Password"
                             type='password'
                             name='password'
+                            value={formData.password || ''} 
                             onChange={handleFormDataChange}
                         />
-
                         <Button type='submit'>Entrar</Button>
-
                     </form>
-                </div>
-            </div>
-        )
-    }
-
-    if (formType === 'signup') {
-        return (
-            <div className={styles.authPageContainer}>
-                <div>
+                </>
+            ) : formType === 'signup' ? (
+                <>
                     <h1>Cadastro</h1>
-                    <button onClick={handleChangeFormType}> Já tem uma conta?  Clique aqui</button>
-
+                    <button onClick={handleChangeFormType}>Já tem uma conta? Clique aqui</button>
                     <form onSubmit={handleSubmitForm}>
                         <TextField
                             required
                             label="Nome completo"
                             type='fullname'
                             name='fullname'
+                            value={formData.fullname || ''} 
                             onChange={handleFormDataChange}
                         />
                         <TextField
@@ -98,6 +90,7 @@ export default function Auth() {
                             label="Email"
                             type='email'
                             name='email'
+                            value={formData.email || ''}
                             onChange={handleFormDataChange}
                         />
                         <TextField
@@ -105,26 +98,21 @@ export default function Auth() {
                             label="Senha"
                             type='password'
                             name='password'
+                            value={formData.password || ''}
                             onChange={handleFormDataChange}
                         />
-
                         <TextField
                             required
                             label="Confirmar senha"
                             type='password'
                             name='confirmpassword'
+                            value={formData.confirmpassword || ''} 
                             onChange={handleFormDataChange}
                         />
-
-
                         <Button type='submit'>Registar</Button>
-
                     </form>
-                </div>
-            </div>
-        )
-    }
+                </>
+            ) : null}
+        </div>
+    )
 }
-
-
-
