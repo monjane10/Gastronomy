@@ -5,7 +5,7 @@ import authServices from '../../services/auth'
 export default function Auth() {
     const [formType, setFormType] = useState('login')
     const [formData, setFormData] = useState(null)
-    const { login, signup } = authServices()
+    const { login, signup, authLoading} = authServices()
 
     const handleChangeFormType = () => {
         setFormData(null)
@@ -22,6 +22,12 @@ export default function Auth() {
             [e.target.name]: e.target.value
 
         })
+    }
+
+    if (authLoading) {
+        return (
+            <h1>Carregando...</h1>
+        )
     }
 
     const handleSubmitForm = (e) => {
