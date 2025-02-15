@@ -5,7 +5,7 @@ import authServices from '../../services/auth'
 export default function Auth() {
     const [formType, setFormType] = useState('login')
     const [formData, setFormData] = useState(null)
-    const { login } = authServices()
+    const { login, signup } = authServices()
 
     const handleChangeFormType = () => {
         setFormData(null)
@@ -34,8 +34,8 @@ export default function Auth() {
                 if (formData.password !== formData.confirmpassword) {
                     alert('As senhas não coincidem')
                     return
-
                 }
+                signup(formData)
                 break
             default:
                 break
