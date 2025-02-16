@@ -40,7 +40,7 @@ export default function authServices() {
   
 
     const logout = async () => {
-        
+        localStorage.removeItem('auth')
     }
 
     const signup = async (formData) => {

@@ -63,6 +63,7 @@ authRouter.post("/signup", async (req, res) => {
             });
         }
         const result = await Mongo.db.collection(colletionName).insertOne({
+            name: req.body.name,
             email: req.body.email,
             password: hashedPassword,
             salt
