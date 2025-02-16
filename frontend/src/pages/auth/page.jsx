@@ -62,7 +62,7 @@ export default function Auth() {
             {formType === 'login' ? (
                 <>
                     <h3>Bem-Vindo</h3>
-                    <button onClick={handleChangeFormType}>Ainda não tens uma conta? Clique aqui</button>
+                    <button onClick={handleChangeFormType}>Ainda não tem uma conta? Clique aqui</button>
                     <form onSubmit={handleSubmitForm}>
                         <TextField
                             required
