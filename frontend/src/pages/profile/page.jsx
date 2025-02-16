@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { LuLogOut, LuTimer,  LuCircleCheck, LuTriangleAlert  } from "react-icons/lu";
+
 import authServices from '../../services/auth'
 import orderServices from '../../services/order'
 import styles from './page.module.css'
@@ -44,7 +46,7 @@ export default function Profile() {
             <h1>{authData?.user?.name}</h1>
             <h3>{authData?.user?.email}</h3>
             </div>
-            <button onClick={handleLogout}>Sair</button>
+            <button onClick={handleLogout}>Sair<LuLogOut /></button>
 
             <div>
 
@@ -54,11 +56,13 @@ export default function Profile() {
                 <div className={styles.ordersContainer}>
                     {ordersList.map((order) => (
                         <div key={order._id} className={styles.orderContainer}>
-                            <h3>Estado:{order.pickupStatus}</h3>
-                            <h3>Hora de levantamento:{order.pickupTime}</h3>
+                            {order.pickupStatus.toLowerCase() === 'pendente' ? <p className={`${styles.pickupStatus} ${styles.pending}`}><LuTimer />{order.pickupStatus}</p> : null}                         
+                            {order.pickupStatus.toLowerCase() === 'concluido' ? <p className={`${styles.pickupStatus} ${styles.completed}`}><LuCircleCheck />{order.pickupStatus}</p> : null}                         
+                            {order.pickupStatus.toLowerCase() === 'cancelado' ? <p className={`${styles.pickupStatus} ${styles.canceled}`}><LuTriangleAlert />{order.pickupStatus}</p> : null}                     
+                            <h3>{order.pickupTime}</h3>
                             {order.orderItems.map((item) =>(
                                 <div key={item._id}>
-                                    <h3>Produto: {item.itemDetails[0].name}</h3>
+                                    <h3>{item.itemDetails[0].name}</h3>
                                     <p>Quantidade: {item.quantity}</p>
                                 </div>
                             ))}

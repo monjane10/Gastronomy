@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
-import { TextField, Button } from '@mui/material'
+import { TextField } from '@mui/material'
+import { LuLogIn } from "react-icons/lu";
 import styles from './page.module.css'
 import authServices from '../../services/auth'
 
@@ -60,7 +61,7 @@ export default function Auth() {
         <div className={styles.authPageContainer}>
             {formType === 'login' ? (
                 <>
-                    <h1>Login</h1>
+                    <h3>Bem-Vindo</h3>
                     <button onClick={handleChangeFormType}>Ainda não tens uma conta? Clique aqui</button>
                     <form onSubmit={handleSubmitForm}>
                         <TextField
@@ -79,12 +80,12 @@ export default function Auth() {
                             value={formData.password || ''} 
                             onChange={handleFormDataChange}
                         />
-                        <Button type='submit'>Entrar</Button>
+                        <button type='submit'>Entrar<LuLogIn /></button>
                     </form>
                 </>
             ) : formType === 'signup' ? (
                 <>
-                    <h1>Cadastro</h1>
+                    <h3>Crie a sua conta!</h3>
                     <button onClick={handleChangeFormType}>Já tem uma conta? Clique aqui</button>
                     <form onSubmit={handleSubmitForm}>
                         <TextField
@@ -119,7 +120,7 @@ export default function Auth() {
                             value={formData.confirmpassword || ''} 
                             onChange={handleFormDataChange}
                         />
-                        <Button type='submit'>Registar</Button>
+                        <button type='submit'>Registar<LuLogIn /></button>
                     </form>
                 </>
             ) : null}
