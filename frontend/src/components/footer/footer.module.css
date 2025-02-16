@@ -1,0 +1,33 @@
+.footerContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #004643;
+    color: #faf0ca;
+    gap: 1em;
+    padding-bottom: 2em;
+    
+}
+
+.footerContainer img{
+    width: 7em;
+}
+
+.footerLinksContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #004643;
+    color: #faf0ca;  
+}
+.footerLinks{
+    color: #faf0ca;  
+}
+
+.a{
+    color: #faf0ca;
+    text-decoration: underline;
+}
+

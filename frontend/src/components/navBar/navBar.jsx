@@ -18,7 +18,7 @@ export default function NavBar() {
               
                 <div className={styles.navBarLinksContainer}>
                     <Link to={"/"} className={styles.navBarLink} >Home</Link>
-                    <Link to={"/plates"} className={styles.navBarLink} >Plates</Link>
+                    <Link to={"/plates"} className={styles.navBarLink} >Pratos</Link>
                     <Link to={"/cart"}>
                       <LuShoppingCart className={styles.navBarLink} />
                     </Link>
@@ -47,8 +47,8 @@ export default function NavBar() {
     >
         <div  className={styles.drawerContainer}>
          <Link to={"/"} className={styles.navBarLink} onClick={handleOpenMenu} >Home</Link>
-         <Link to={"/plates"} className={styles.navBarLink} onClick={handleOpenMenu} >Plates</Link>
-         <Link to={"/profile"} className={styles.navBarLink} onClick={handleOpenMenu}  >Profile</Link>
+         <Link to={"/plates"} className={styles.navBarLink} onClick={handleOpenMenu} >Pratos</Link>
+         <Link to={"/profile"} className={styles.navBarLink} onClick={handleOpenMenu}  >Perfil</Link>
         </div>
     </Drawer>
 
