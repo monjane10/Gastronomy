@@ -39,9 +39,11 @@ export default function Profile() {
     console.log(ordersList)
 
     return (
-        <>
+        <div className={styles.pageContainer}>
+            <div >
             <h1>{authData?.user?.name}</h1>
             <h3>{authData?.user?.email}</h3>
+            </div>
             <button onClick={handleLogout}>Sair</button>
 
             <div>
@@ -69,6 +71,6 @@ export default function Profile() {
                 </div>
             )}
 
-        </>
+        </div>
     )
 }
