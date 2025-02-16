@@ -1,0 +1,11 @@
+.ordersContainer {
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+    
+}
+
+.orderContainer{
+    background-color: #004643;
+    color: #faf0ca;
+    padding: 0.5em;
+}
