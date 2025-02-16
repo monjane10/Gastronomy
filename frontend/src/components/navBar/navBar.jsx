@@ -31,7 +31,7 @@ export default function NavBar() {
 
             <div className={styles.mobileNavBarItems}>
             <Link to={"/"}>
-                  <img className={styles.logo} src="/logo.png" alt="logotipo" />
+                  <img className={styles.logo} src="./imgs/logo.png" alt="logotipo" />
                 </Link>
                 <div className={styles.mobileNavBarBtn}>
                 <Link to={"/cart"}>
