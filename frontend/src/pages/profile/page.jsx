@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { LuLogOut, LuTimer,  LuCircleCheck, LuTriangleAlert  } from "react-icons/lu";
+import { Link } from 'react-router-dom';
 
 import authServices from '../../services/auth'
 import orderServices from '../../services/order'
@@ -71,7 +72,8 @@ export default function Profile() {
                 </div>
             ) : (
                 <div>
-                    Ainda não tens pedidos
+                    Ainda não tens pedidos.
+                    <Link to={'/plates'} className={styles.platesLink}>Clica aqui e veja os nossas especialidades</Link>
                 </div>
             )}
 

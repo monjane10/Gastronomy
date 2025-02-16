@@ -46,9 +46,9 @@ export default function NavBar() {
       onClose={handleOpenMenu}
     >
         <div  className={styles.drawerContainer}>
-         <Link to={"/"} className={styles.navBarLink} >Home</Link>
-         <Link to={"/plates"} className={styles.navBarLink}>Plates</Link>
-         <Link to={"/profile"} className={styles.navBarLink} >Profile</Link>
+         <Link to={"/"} className={styles.navBarLink} onClick={handleOpenMenu} >Home</Link>
+         <Link to={"/plates"} className={styles.navBarLink} onClick={handleOpenMenu} >Plates</Link>
+         <Link to={"/profile"} className={styles.navBarLink} onClick={handleOpenMenu}  >Profile</Link>
         </div>
     </Drawer>
 
