@@ -3,11 +3,14 @@ import platesServices from '../../services/plates';
 import Loading from '../loading/page';
 import PlateCard from '../../components/plateCard/plateCard';
 import PlatePopup from '../../components/platePopup/platePopup';
+import { useCartContext } from '../../contexts/useCartContext';
 import styles from './page.module.css';
 
 export default function Pratos() {
     const { getAvailablePlates, platesList, platesLoading, refetchPlates } = platesServices();
     const [plateSelected, setPlateSelected] = useState(null);
+    const {addToCart} = useCartContext();
+
 
     useEffect(() => {
         if (refetchPlates) {
@@ -21,6 +24,11 @@ export default function Pratos() {
 
     const handleClosePopup = () => {
         handlePlateSelected(null);
+    }
+
+    const handleAddToCart = (itemToAdd) => {
+        addToCart(itemToAdd);
+        handleClosePopup();
     }
 
     if (platesLoading) {
@@ -41,7 +49,7 @@ export default function Pratos() {
             </div>
 
             {plateSelected && (
-                <PlatePopup plate={plateSelected} onClose={handleClosePopup} />
+                <PlatePopup plate={plateSelected} onClose={handleClosePopup} onAddToCart={handleAddToCart} />
             )}
 
         </>
