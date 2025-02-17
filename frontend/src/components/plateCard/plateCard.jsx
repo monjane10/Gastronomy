@@ -8,7 +8,6 @@ export default function PlateCard({ plateData }) {
                 <img src={plateData.imgUrl} alt="" />
                 <div className={styles.plateCardContent}>
                     <h4>{plateData.name}</h4>
-                    <p>{plateData.description}</p>
                     <h3 className={styles.price}>{plateData.price}Mzn</h3>
                 </div>
 

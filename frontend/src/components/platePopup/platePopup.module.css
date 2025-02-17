@@ -1,0 +1,23 @@
+.platePopupContainer{
+    background-color: #faf0ca;
+    color: #004643;
+}
+
+.platePopupContent {
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.platePopupContainer img {
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+
+}
+
+.ingredients {
+    color: #777;
+}
+
