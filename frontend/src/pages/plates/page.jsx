@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import platesServices from '../../services/plates';
 import Loading from '../loading/page';
+import PlateCard from '../../components/plateCard/plateCard';
 
 export default function Pratos() {
     const { getAvailablePlates, platesList, platesLoading, refetchPlates } = platesServices();
@@ -18,9 +19,12 @@ export default function Pratos() {
     console.log(platesList);
 
     return (
-        <div>
-            <h1>Pratos</h1>
-            <p>Conteúdo da página inicial vai aqui</p>
-        </div>
+        <>
+            <div>
+            {platesList.map((plate) => (
+                <PlateCard plateData={plate} key={plate._id} />
+            ))}
+            </div>
+        </>
     );
 }
