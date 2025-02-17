@@ -7,7 +7,7 @@ export default function Cart() {
     console.log(cartItems);
     return (
         <div>
-            <h1>Carrinhp</h1>
+            <h1>Carrinho</h1>
             <p>Home page content goes here</p>
         </div>
     )
