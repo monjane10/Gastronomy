@@ -10,7 +10,6 @@ export function CartProvider({ children }) {
     
         if (!checkItemAlready) {
             setCartItems([...cartItems, { ...itemToAdd, quantity: 1 }]); // Adiciona ao carrinho com quantidade inicial 1
-            alert("Item adicionado ao carrinho");
         } else {
             alert("O item já está no carrinho");
         }

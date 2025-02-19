@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useCartContext } from '../../contexts/useCartContext';
 import { CiCircleMinus } from "react-icons/ci";
 import styles from './page.module.css';
+import ConfirmOrderPopup from '../../components/confirmOrderPopup/confirmOrderPopup';
+import orderServices from "../../services/order"
 export default function Cart() {
 
     const { cartItems, updateCartItems, removeFromCart } = useCartContext();
+    const [confirmPopupOpen, setConfirmPopupOpen] = useState(false);
+    const { sendOrder } = orderServices()
 
     const handleChangeItemQty = (mode, itemId) => {
         const updatedCartItem = cartItems.map((item) => {
@@ -22,7 +26,22 @@ export default function Cart() {
 
     }
 
-    console.log(cartItems);
+    const handleOpenPopup = (e) => {
+        e.preventDefault()
+        setConfirmPopupOpen(!confirmPopupOpen)
+    }
+
+
+    const handleConfirmOrder = (orderData) => {
+        orderData.items = cartItems.map((item) => {
+            return { plateId: item._id, quantity: item.quantity }
+        })
+        sendOrder(orderData)
+        setConfirmPopupOpen(!confirmPopupOpen)
+        clearCart()
+    }
+
+    //console.log(cartItems);
     if (!cartItems.length) {
         return (
             <div >
@@ -34,6 +53,7 @@ export default function Cart() {
     }
 
     return (
+        <>
         <div className={styles.pageContainer}>
             <h1>Seus Itens:</h1>
 
@@ -62,7 +82,9 @@ export default function Cart() {
                 </div>
             </section>
 
-            <button className={styles.confirmButton}>Confirmar pedido</button>
+            <button className={styles.confirmButton} onClick={handleOpenPopup}>Confirmar pedido</button>
         </div>
-    )
+        <ConfirmOrderPopup open={confirmPopupOpen} onClose={handleOpenPopup} onConfirm={handleConfirmOrder} />
+        </>
+)
 }
